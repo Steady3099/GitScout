@@ -12,10 +12,17 @@ import retrofit2.Response
 class UserProfileViewModel : ViewModel() {
 
     private val userRepository = UserRepository()
-
     private val _userProfile = MutableLiveData<User>()
+    private val _userFollowers = MutableLiveData<List<User>>()
+    private val _userFollowings = MutableLiveData<List<User>>()
     val userProfile: LiveData<User>
         get() = _userProfile
+
+    val userFollowers: LiveData<List<User>>
+        get() = _userFollowers
+
+    val userFollowings: LiveData<List<User>>
+        get() = _userFollowings
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
@@ -39,4 +46,43 @@ class UserProfileViewModel : ViewModel() {
             }
         })
     }
+
+    fun fetchUserFollowers(username: String) {
+        _loading.value = true
+
+        userRepository.getUserFollowers(username, object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if (response.isSuccessful) {
+                    val userProfile = response.body()
+                    _userFollowers.value = userProfile
+                }
+                _loading.value = false
+            }
+
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                _loading.value = false
+                // Handle failure or show error state
+            }
+        })
+    }
+
+    fun fetchUserFollowings(username: String) {
+        _loading.value = true
+
+        userRepository.getUserFollowings(username, object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if (response.isSuccessful) {
+                    val userProfile = response.body()
+                    _userFollowings.value = userProfile
+                }
+                _loading.value = false
+            }
+
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                _loading.value = false
+                // Handle failure or show error state
+            }
+        })
+    }
+
 }

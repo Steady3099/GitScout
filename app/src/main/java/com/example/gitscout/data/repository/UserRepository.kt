@@ -18,4 +18,12 @@ class UserRepository {
     fun getUserProfile(username: String, callback: Callback<User>) {
         userService.getUser(username).enqueue(callback)
     }
+
+    fun getUserFollowers(username: String, callback: Callback<List<User>>) {
+        userService.getUserFollowers(username).enqueue(callback)
+    }
+
+    fun getUserFollowings(username: String, callback: Callback<List<User>>) {
+        userService.getUserFollowings(username).enqueue(callback)
+    }
 }

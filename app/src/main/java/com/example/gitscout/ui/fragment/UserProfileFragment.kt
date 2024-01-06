@@ -40,6 +40,8 @@ class UserProfileFragment : Fragment() {
                 binding.textViewName.text = it.name
                 binding.textViewFollowers.text = "Followers: "+it.followers.toString()
                 binding.textViewFollowing.text = "Followings: "+it.following.toString()
+                if(it.followers == 0) binding.textViewFollowers.isEnabled = false
+
 
                 Glide.with(this)
                     .load(it.avatarUrl)
@@ -57,6 +59,35 @@ class UserProfileFragment : Fragment() {
         }
 
         viewModel.fetchUserProfile(username)
+
+        binding.textViewFollowers.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("username", username)
+            bundle.putBoolean("IsFollowers",true)
+            val connectionsFragment = FollowerFollowingFragment()
+            connectionsFragment.arguments = bundle
+
+            // Navigate to UserProfileFragment
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragmentContainer, connectionsFragment)
+                ?.addToBackStack(null)
+                ?.commit()
+        }
+
+        binding.textViewFollowing.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("username", username)
+            bundle.putBoolean("IsFollowers",false)
+            val connectionsFragment = FollowerFollowingFragment()
+            connectionsFragment.arguments = bundle
+
+            // Navigate to UserProfileFragment
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragmentContainer, connectionsFragment)
+                ?.addToBackStack(null)
+                ?.commit()
+        }
+
 
     }
 
