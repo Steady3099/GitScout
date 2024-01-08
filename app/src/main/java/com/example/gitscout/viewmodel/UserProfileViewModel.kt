@@ -36,13 +36,14 @@ class UserProfileViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val userProfile = response.body()
                     _userProfile.value = userProfile
+                }else{
+                    _userProfile.value = null
                 }
                 _loading.value = false
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
                 _loading.value = false
-                // Handle failure or show error state
             }
         })
     }
@@ -61,7 +62,6 @@ class UserProfileViewModel : ViewModel() {
 
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 _loading.value = false
-                // Handle failure or show error state
             }
         })
     }

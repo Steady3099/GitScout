@@ -3,6 +3,7 @@ package com.example.gitscout.data.model
 import com.google.gson.annotations.SerializedName
 
 data class User(
+    @SerializedName("message") val message: String,
     @SerializedName("login") val login: String,
     @SerializedName("id") val id: Int,
     @SerializedName("node_id") val nodeId: String,

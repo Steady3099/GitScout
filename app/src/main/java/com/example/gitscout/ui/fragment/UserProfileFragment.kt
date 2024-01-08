@@ -1,5 +1,6 @@
 package com.example.gitscout.ui.fragment
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,19 +36,25 @@ class UserProfileFragment : Fragment() {
 
         viewModel.userProfile.observe(viewLifecycleOwner) { userProfile ->
             userProfile?.let {
-                binding.textViewUsername.text = it.login
-                binding.textViewDescription.text = it.bio
-                binding.textViewName.text = it.name
-                binding.textViewFollowers.text = "Followers: "+it.followers.toString()
-                binding.textViewFollowing.text = "Followings: "+it.following.toString()
-                if(it.followers == 0) binding.textViewFollowers.isEnabled = false
-                if(it.following == 0) binding.textViewFollowing.isEnabled = false
+                    binding.textViewUsername.text = it.login
+                    binding.textViewDescription.text = it.bio
+                    binding.textViewName.text = it.name
+                    binding.textViewFollowers.text = "Followers: " + it.followers.toString()
+                    binding.textViewFollowing.text = "Followings: " + it.following.toString()
+                    if (it.followers == 0) binding.textViewFollowers.isEnabled = false
+                    if (it.following == 0) binding.textViewFollowing.isEnabled = false
 
-                Glide.with(this)
-                    .load(it.avatarUrl)
-                    .centerCrop()
-                    .into(binding.imageViewAvatar)
-            }
+                    Glide.with(this)
+                        .load(it.avatarUrl)
+                        .centerCrop()
+                        .into(binding.imageViewAvatar)
+
+                    handleViewsVisibility(View.VISIBLE)
+                    binding.norecordTxv.visibility = View.GONE
+                } ?: run {
+                    handleViewsVisibility(View.GONE)
+                    binding.norecordTxv.visibility = View.VISIBLE
+                }
         }
 
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
@@ -89,6 +96,14 @@ class UserProfileFragment : Fragment() {
         }
 
 
+    }
+
+    private fun handleViewsVisibility(visibility: Int){
+        binding.textViewUsername.visibility = visibility
+        binding.textViewDescription.visibility = visibility
+        binding.textViewName.visibility = visibility
+        binding.connectionsLl.visibility = visibility
+        binding.imageViewAvatar.visibility = visibility
     }
 
     override fun onDestroyView() {
