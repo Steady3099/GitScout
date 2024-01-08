@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageViewAvatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -43,7 +43,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Full Name"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/imageViewAvatar"
@@ -54,10 +54,14 @@
 
     <TextView
         android:id="@+id/textViewDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Description"
+        android:minHeight="100dp"
+        android:hint="Bio"
+        android:padding="5dp"
         android:textSize="16sp"
+        android:gravity="center"
+        android:background="@drawable/rounded_corner"
         app:layout_constraintTop_toBottomOf="@id/textViewName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,14 +83,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Followers: 0"
-            android:textSize="16sp"/>
+            android:textColor="#3462DD"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:background="@drawable/rounded_corner"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/textViewFollowing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Following: 0"
-            android:textSize="16sp"
+            android:textColor="#3462DD"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:background="@drawable/rounded_corner"
+            android:textSize="20sp"
             android:layout_marginStart="16dp"/>
     </LinearLayout>
 

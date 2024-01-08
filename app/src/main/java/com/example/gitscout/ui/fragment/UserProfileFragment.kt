@@ -41,7 +41,7 @@ class UserProfileFragment : Fragment() {
                 binding.textViewFollowers.text = "Followers: "+it.followers.toString()
                 binding.textViewFollowing.text = "Followings: "+it.following.toString()
                 if(it.followers == 0) binding.textViewFollowers.isEnabled = false
-
+                if(it.following == 0) binding.textViewFollowing.isEnabled = false
 
                 Glide.with(this)
                     .load(it.avatarUrl)
